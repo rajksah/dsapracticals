@@ -1,0 +1,144 @@
+#include<iostream>
+using namespace std;
+class search
+{
+	int a[20];
+	int n;
+public:
+	void getdata();
+	void putdata();
+	void bin_search();
+	void seq_search();
+	int fib(int);
+	void fib_search();
+	void fsearch(int A[],int n,int key,int f,int b,int a);
+};
+void search::getdata()
+{
+	int i;
+	cout<<"\n\tHow many numbers you want to enter?";
+	cin>>n;
+	cout<<"\nEnter "<<n<<" numbers :";
+	for(i=0;i<n;i++)
+		cin>>a[i];
+}
+void search::putdata()
+{
+	cout<<"\n\t Array :";
+	for(int i=0;i<n;i++)
+				cout<<" "<<a[i];
+}
+
+void search::bin_search()
+{
+	int first,last,key,mid;
+	putdata();
+	cout<<"\n\tEnter value to be searched in array :";
+	cin>>key;
+	first=0;
+	last=n-1;
+	while(first<=last)
+	{
+		mid=(first+last)/2;
+		if(key==a[mid])
+			{
+			cout<<"\n Key found at index"<<mid;
+			break;
+			}
+		else if(a[mid]>key)
+			last=mid-1;
+		else
+			first=mid+1;
+	}
+	if(first>last)
+		cout<<"\n\tKey not found in array";
+}
+void search::seq_search()
+{
+	int i,key;
+	putdata();
+		cout<<"\n\tEnter value to be searched in array :";
+		cin>>key;
+		for(i=0;i<n;i++)
+			if(key==a[i])
+				{
+				cout<<"\n\tKey found at index :"<<i;
+				break;
+				}
+		if(i==n)
+			cout<<"\n\t Key not found in array";
+}
+int search:: fib(int m)
+{
+	int a,b,f;
+	a=0;
+	b=1;
+	while(b<m)
+	{
+		f=a+b;
+		a=b;
+		b=f;
+	}
+	return a;
+}
+void search::fib_search()
+{
+	int key;
+	putdata();
+		cout<<"\n\tEnter value to be searched in array :";
+		cin>>key;
+	fsearch(a,n,key,n,fib(n),fib(fib(n)));
+}
+void search::fsearch(int A[],int n,int key,int f,int b,int a)
+{
+	if(f<1 || f>n)
+		cout<<"\n\t Key not present in array";
+	else if(key<A[f])
+	{
+		if(a<=0)
+			cout<<"\n\t Key not present in array";
+		else
+			fsearch(A,n,key,f-a,a,b-a);
+	}
+	else if(key>A[f])
+	{
+		if(b<=1)
+			cout<<"\n\t Key not present in array";
+		else
+			fsearch(A,n,key,f+a,b-a,a-b);
+	}
+	else
+		cout<<"\n\t Key present in array at index :"<<f;
+
+}
+int main()
+{
+	search s;
+	int ch;
+	do
+	{
+		cout<<"\n 1.Enter array\n 2.Display array\n 3.Sequential search\n 4. Binary search\n 5.Fibonacci search \n 6.Exit";
+		cout<<"\n Enter your choice :";
+		cin>>ch;
+		switch(ch)
+		{
+		case 1:
+			s.getdata();
+			break;
+		case 2:
+			s.putdata();
+			break;
+		case 3:
+			s.seq_search();
+			break;
+		case 4:
+			s.bin_search();
+			break;
+		case 5:
+			s.fib_search();
+			break;
+		}
+
+	}while(ch!=6);
+	return 0;
+}

@@ -1,0 +1,100 @@
+#include<iostream>
+using namespace std;
+
+int add_rear(int q[20],int rear)
+{
+	int x;
+	cout<<"enter value to be inserted";
+	cin>>x;
+	q[rear]=x;
+	rear++;
+	return rear;
+}
+int add_front(int q[20],int front)
+{
+	int x;
+	cout<<"enter value to be inserted";
+	cin>>x;
+	q[front]=x;
+	front--;
+
+	return front;
+}
+int del_rear(int q[20],int rear,int front)
+{int x;
+	if(rear==front)
+	{
+		x=q[rear];
+		rear=-1;
+	}
+	else
+	{
+		x=q[rear];
+		rear--;
+	}
+	return rear;
+}
+int del_front(int q[20],int rear,int front)
+{
+	int x;
+	if(rear==front)
+	{
+		x=q[front];
+		front=-1;
+	}
+	else
+	{
+		x=q[front];
+		front++;
+	}
+	return front;
+}
+void display(int q[20],int front,int rear)
+{
+	int i;
+	if(rear==-1 || front==-1)
+	cout<<"queue is empty";
+	else
+	{
+		cout<<"front:";
+		for(i=front+1 ;i<rear;i++)
+		cout<<q[i]<<" ";
+		cout<<":rear";
+	}
+}
+int main()
+{
+	int q[20];
+	int front,rear,ch;
+	rear=10;front=9;
+	do
+	{
+		cout<<"1.insert at rear end\n2.insert at front\n3.delete at rear end\n4.delete from front end\n5.display";
+		cout<<"\nenter ur choice";
+		cin>>ch;
+		switch(ch)
+		{
+		case 1:
+		rear=add_rear(q,rear);
+		break;
+		case 2:
+			front=add_front(q,front);
+			break;
+		case 3:
+			rear=del_rear(q,rear,front);
+			break;
+		case 4:
+			front=del_front(q,front,rear);
+					break;
+		case 5:
+			display (q,front,rear);
+			break;
+
+		}
+		cout<<"do u want to continue?(0/1)";
+		cin>>ch;
+
+	}while(ch==1);
+	return 0;
+}
+
